@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+                @keyframes red-notification {
+            50% {
+                transition: 0.5s;
+                background-color: #fca0a0;
+                border: 1px solid #d36d6d;
+            }
+            100% {
+                transition: 0.5s;
+                background: #fff;
+                border: 1px solid #ccc;
+            }
+        }
+        @keyframes loading {
+            50% {
+                transition: 0.5s;
+                background-color: #a0ebfc;
+                border: 1px solid #6d99d3;
+            }
+            100% {
+                transition: 0.5s;
+                background: #fff;
+                border: 1px solid #ccc;
+            }
+        }
+        body {
+            background-color: #f4f4f4;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+
+        }
+        pre {
+            background: #fff;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        @font-face {
+            font-family: Norms;
+            src: url("TTNorms\ Bold.ttf");
+        }
+        #json {
+            transition: 1s;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        #g {
+        user-select: none;
+        position: absolute;
+        color: gray;  
+        top: 95%;
+        left: 50%;
+        transform: translate(-50%, -95%);
+        resize: none;
+        font-size: 17px;
+        z-index: 1488;
+        }
+        button {
+            transition: 0.5s;
+            padding: 0.3rem 8rem;
+            font-size: 1rem;
+            background-color: #fefefe;
+            color: gray;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            cursor: pointer;
+            transition: 0.5s;
+            background-color: #eafbff;
+            border: 1px solid #a5b7ce;
+        }
+        #universalButton {
+            position: absolute;
+            padding: 0.3rem 1rem;
+            visibility: hidden;
+            top:50%;
+        }
+        #universalButton:hover {
+            cursor: none;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="g">© 2024 kukivasik api</h2>
+    <div class="container">
+        <pre id="json"></pre>
+        <button id="copyButton">Copy</button>
+        <button id="universalButton">Universal</button>
+    </div>
+    <script src="api.js"></script>
+    <script>
+        document.title = decodeURIComponent(window.location.hash.slice(1))
+        if (typeof api === 'function' && typeof apisearch === 'function') {
+            const apie = api()
+        }
+        const copyButton = document.getElementById('copyButton');
+        copyButton.addEventListener('click', () => {
+            const JsonInfo = document.getElementById('json');
+            var regex = /[a-zA-Zа-яА-Я0-9]/;
+                if (typeof api === 'function' && typeof apisearch === 'function') {
+                    navigator.clipboard.writeText(JsonInfo.textContent).then(() => {
+                copyButton.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                }, 2000);
+            })} else {
+                copyButton.style.animationDuration = "1s"
+                copyButton.style.animationIterationCount = "1"
+                copyButton.style.animationName = 'none'
+                void copyButton.offsetWidth;
+                copyButton.style.animationName = "red-notification"
+                copyButton.style.animationDuration = "1s"
+                copyButton.style.animationIterationCount = "1"
+            }});
+
+            function hashChangeHandler() {
+                location.reload()
+            }
+            window.addEventListener('hashchange', hashChangeHandler, false);
+    </script>
+</body>
+</html>
